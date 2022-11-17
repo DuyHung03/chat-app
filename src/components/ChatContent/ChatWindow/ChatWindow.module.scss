@@ -1,0 +1,26 @@
+.wrapper {
+    height: calc(100vh - 66px);
+    flex-direction: column !important;
+    justify-content: space-between;
+    padding: 0 16px;
+    position: relative;
+    overflow: hidden;
+
+    .message {
+        width: 1120px;
+        max-height: 650px;
+        position: absolute;
+        bottom: 60px;
+        overflow: scroll;
+    }
+
+    .input {
+        position: fixed;
+        bottom: 0;
+        width: 1120px;
+    }
+}
+
+.message::-webkit-scrollbar {
+    display: none;
+}

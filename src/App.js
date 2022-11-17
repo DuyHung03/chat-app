@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+
+import LogInLayout from './Layout/LogInLayout';
+import ChatLayout from './Layout/ChatLayout';
+import AuthProvider from './Context/AuthProvider';
+import AddRoomModal from './components/Modal/AddRoomModal';
+import AppProvider from './Context/AppProvider';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            <AuthProvider>
+                <AppProvider>
+                    <Routes>
+                        <Route
+                            path="/"
+                            element={<ChatLayout />}
+                        />
+                        <Route
+                            path="/login"
+                            element={<LogInLayout />}
+                        />
+                    </Routes>
+                    <AddRoomModal />
+                </AppProvider>
+            </AuthProvider>
+        </div>
+    );
 }
 
 export default App;
