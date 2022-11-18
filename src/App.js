@@ -6,6 +6,7 @@ import ChatLayout from './Layout/ChatLayout';
 import AuthProvider from './Context/AuthProvider';
 import AddRoomModal from './components/Modal/AddRoomModal';
 import AppProvider from './Context/AppProvider';
+import AddMemberModal from './components/Modal/AddMemberModal';
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                         />
                     </Routes>
                     <AddRoomModal />
+                    <AddMemberModal />
                 </AppProvider>
             </AuthProvider>
         </div>

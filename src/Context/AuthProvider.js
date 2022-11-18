@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import Loading from '../components/Loading/Loading';
 import { auth } from '../firebase/firebaseConfig';
 

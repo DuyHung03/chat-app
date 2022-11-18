@@ -5,7 +5,7 @@ import { AuthContext } from '../../Context/AuthProvider';
 import { addDocument } from '../../firebase/service';
 
 const AddRoomModal = () => {
-    const { isOpenModal, setIsOpenModal } =
+    const { isOpenAddRoomModal, setIsOpenAddRoomModal } =
         useContext(AppContext);
 
     const {
@@ -21,17 +21,17 @@ const AddRoomModal = () => {
             members: [uid],
         });
         form.resetFields();
-        setIsOpenModal(false);
+        setIsOpenAddRoomModal(false);
     };
 
     const handleCancel = () => {
         form.resetFields();
-        setIsOpenModal(false);
+        setIsOpenAddRoomModal(false);
     };
 
     return (
         <Modal
-            open={isOpenModal}
+            open={isOpenAddRoomModal}
             title="Add new room"
             onOk={handleSubmit}
             onCancel={handleCancel}

@@ -1,11 +1,9 @@
 import { Button, Collapse, Typography } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from './RoomList.module.scss';
-import useFirestore from '../../../hooks/useFirestore';
-import { AuthContext } from '../../../Context/AuthProvider';
 import { AppContext } from '../../../Context/AppProvider';
 
 const cx = classNames.bind(styles);
@@ -14,20 +12,11 @@ const { Panel } = Collapse;
 
 function RoomList() {
     const {
-        user: { uid },
-    } = useContext(AuthContext);
+        rooms,
+        setIsOpenAddRoomModal,
+        setSelectedRoomId,
+    } = useContext(AppContext);
 
-    const { setIsOpenModal } = useContext(AppContext);
-
-    const roomsRef = useMemo(() => {
-        return {
-            fieldName: 'members',
-            operator: 'array-contains',
-            compareValue: uid,
-        };
-    }, [uid]);
-    const rooms = useFirestore('rooms', roomsRef);
-    console.log(rooms);
     return (
         <div style={{ padding: '8px 16px' }}>
             <Collapse
@@ -42,6 +31,9 @@ function RoomList() {
                         <Typography
                             className={cx('room')}
                             key={room.id}
+                            onClick={() => {
+                                setSelectedRoomId(room.id);
+                            }}
                         >
                             {room.name}
                         </Typography>
@@ -53,7 +45,7 @@ function RoomList() {
                 icon={<PlusOutlined />}
                 className={cx('add-room-btn')}
                 onClick={() => {
-                    setIsOpenModal(true);
+                    setIsOpenAddRoomModal(true);
                 }}
             >
                 Add new room

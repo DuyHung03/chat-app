@@ -35,7 +35,6 @@ const useFirestore = (field, condition) => {
                     id: doc.id,
                 }));
                 setDatas(data);
-                console.log(data, snapshot.docs());
             },
         );
 
