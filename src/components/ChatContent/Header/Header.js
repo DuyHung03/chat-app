@@ -5,6 +5,7 @@ import { useContext, useMemo } from 'react';
 
 import styles from './Header.module.scss';
 import { AppContext } from '../../../Context/AppProvider';
+import useFirestore from '../../../hooks/useFirestore';
 
 const cx = classNames.bind(styles);
 
@@ -23,6 +24,18 @@ function Header() {
             ) || {},
         [rooms, selectedRoomId],
     );
+
+    const memeberRef = useMemo(() => {
+        return {
+            fieldName: 'uid',
+            operator: 'in',
+            compareValue: selectedRoom.members,
+        };
+    }, [selectedRoom.members]);
+
+    console.log(selectedRoom.members);
+
+    const members = useFirestore('users', memeberRef);
 
     return (
         <Row className={cx('wrapper')}>
@@ -46,11 +59,22 @@ function Header() {
                     Add member
                 </Button>
                 <Avatar.Group maxCount={2}>
-                    <Avatar>A</Avatar>
-                    <Avatar>A</Avatar>
-                    <Tooltip>
-                        <Avatar>B</Avatar>
-                    </Tooltip>
+                    {members.map((member) => (
+                        <>
+                            <Tooltip>
+                                <Avatar
+                                    key={member.id}
+                                    src={member.photoURL}
+                                >
+                                    {member.photoURL
+                                        ? ''
+                                        : member.displayName
+                                              .slice(0, 1)
+                                              .toUpperCase()}
+                                </Avatar>
+                            </Tooltip>
+                        </>
+                    ))}
                 </Avatar.Group>
             </Col>
         </Row>
